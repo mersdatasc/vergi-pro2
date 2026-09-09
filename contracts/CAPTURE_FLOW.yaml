@@ -1,0 +1,56 @@
+version: 1
+draft_persistence:
+  encrypted_local: true
+  manifest_encrypted: true
+  tenant_partitioned: true
+  format_versioned: true
+  restore_verifies_sha256: true
+  maximum_pages_per_draft: 100
+  atomic_manifest_update: true
+upload:
+  resumable: true
+  idempotency_key_required: true
+  background_supported: true
+  silent_fake_success: false
+states:
+  - permission_unknown
+  - permission_denied
+  - camera_ready
+  - coaching
+  - capturing
+  - reviewing
+  - queued_offline
+  - uploading
+  - processing
+  - needs_verification
+  - completed
+  - failed
+quality_signals:
+  - document_not_found
+  - move_closer
+  - move_farther
+  - hold_steady
+  - low_light
+  - glare
+  - edge_clipped
+  - ready
+sources:
+  - camera
+  - photo_library
+  - files_pdf
+document_modes:
+  - auto
+  - receipt
+  - invoice
+  - bank_document
+  - contract
+  - fuel
+rules:
+  original_never_overwritten: true
+  duplicate_detection_before_upload: true
+  maximum_pages_configurable: true
+  financial_fields_created_only_after_server_processing: true
+  ai_result_is_suggestion: true
+  source_evidence_required_per_extracted_field: true
+  page_visible_only_after_encrypted_commit: true
+  manifest_failure_rolls_back_new_vault_file: true

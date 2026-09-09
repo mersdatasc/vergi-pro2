@@ -1,0 +1,31 @@
+version: 1
+scope: tenant_scoped_feature_data
+resources:
+  documents:
+    list: GET /organizations/{organization_id}/documents
+    detail: GET /organizations/{organization_id}/documents/{document_id}
+  finance:
+    summary: GET /organizations/{organization_id}/finance/summary
+  workspace:
+    summary: GET /organizations/{organization_id}/workspace
+query_rules:
+  document_search_debounce_ms: 300
+  pagination: cursor
+  maximum_page_size: 100
+cache:
+  strategy: stale_while_revalidate
+  tenant_partitioned: true
+  stale_state_visible: true
+  last_success_retained_on_refresh_error: true
+money:
+  representation: signed_minor_units
+  floating_point_forbidden: true
+state:
+  phases: [idle, loading, content, empty, failure]
+  content_can_be_stale: true
+  retry_is_explicit: true
+rules:
+  repository_requires_organization_context: true
+  api_models_do_not_leak_into_views: true
+  preview_data_debug_only: true
+  cancellation_is_not_presented_as_error: true

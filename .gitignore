@@ -1,0 +1,33 @@
+# OS & IDE
+.DS_Store
+*.xcuserstate
+xcuserdata/
+DerivedData/
+.idea/
+*.iml
+
+# Android & Gradle
+.gradle/
+.kotlin/
+local.properties
+android/.idea/
+android/build/
+android/app/build/
+build/
+**/build/
+*.apk
+*.aab
+
+# iOS
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Secrets & Configs
+secrets.properties
+*.xcconfig.local
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore

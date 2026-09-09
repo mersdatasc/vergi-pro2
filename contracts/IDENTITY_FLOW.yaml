@@ -1,0 +1,35 @@
+version: 1
+flow:
+  - launching
+  - welcome
+  - sign_in
+  - authenticating
+  - organization_selection
+  - authenticated
+  - locked
+  - recovery
+rules:
+  session_source: server_only
+  biometric_role: unlock_local_refresh_credential
+  tenant_required_before_workspace: true
+  silent_fallback_success: false
+  generic_credential_error: true
+  rate_limit_visible: true
+  session_revocation_supported: true
+errors:
+  INVALID_CREDENTIALS:
+    retryable: true
+    field: password
+  ACCOUNT_LOCKED:
+    retryable: false
+    action: recovery
+  MFA_REQUIRED:
+    retryable: true
+    action: challenge
+  NETWORK_UNAVAILABLE:
+    retryable: true
+    action: offline_explanation
+  TENANT_ACCESS_REVOKED:
+    retryable: false
+    action: support
+

@@ -1,0 +1,52 @@
+version: 1
+flow:
+  create: POST /organizations/{organization_id}/uploads
+  append: PUT /organizations/{organization_id}/uploads/{upload_id}/chunks/{index}
+  inspect: GET /organizations/{organization_id}/uploads/{upload_id}
+  complete: POST /organizations/{organization_id}/uploads/{upload_id}/complete
+  cancel: DELETE /organizations/{organization_id}/uploads/{upload_id}
+create_request:
+  fields: [file_name, media_type, byte_count, sha256, page_count]
+chunk:
+  default_bytes: 5242880
+  checksum_header: X-Chunk-SHA256
+  content_range_required: true
+  parallelism: 1
+complete_request:
+  fields: [sha256, chunk_count]
+states: [local, queued, creating_session, uploading, paused, completing, processing, needs_attention, completed]
+persisted_state_machine:
+  format_version: 2
+  progress_range: [0.0, 1.0]
+  progress_monotonic: true
+  server_document_id_persisted: true
+  legal_transitions:
+    - pending_to_running
+    - running_to_uploading
+    - uploading_to_processing
+    - processing_to_needs_verification
+    - processing_to_completed
+    - active_to_needs_attention
+    - needs_attention_to_retry_scheduled
+  illegal_transition_rejected: true
+  legacy_queue_read_supported: true
+submission:
+  multipage_single_aggregate: true
+  queue_commit_before_draft_lock: true
+  editing_disabled_after_commit: true
+  draft_retained_until_server_confirmation: true
+  queue_failure_preserves_editable_draft: true
+  payload_contains_vault_references_not_binary: true
+  lock_persisted_in_encrypted_manifest: true
+  submission_id_is_idempotency_key: true
+  interrupted_prepare_reconciled_on_launch: true
+  legacy_manifest_migration_supported: true
+rules:
+  source_encrypted_at_rest: true
+  original_immutable: true
+  idempotency_key_required_on_create_and_complete: true
+  server_offset_authoritative: true
+  checksum_verified_per_chunk_and_whole_file: true
+  cellular_upload_user_preference_respected: true
+  session_resume_after_process_death: true
+  local_source_deleted_only_after_server_confirmation_and_retention_policy: true

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ana uygulama teması -->
+    <style name="Theme.VergiPro" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+
+    <!--
+        Splash screen teması — SplashScreen API (androidx.core:core-splashscreen).
+        windowSplashScreenBackground: beyaz zemin (light).
+        windowSplashScreenAnimatedIcon: VP mark (siyah VP, şeffaf arka plan).
+        Uygulama başladıktan sonra Theme.VergiPro'ya geçiş yapılır.
+    -->
+    <style name="Theme.VergiPro.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/vp_mark_black</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/splash_background</item>
+        <item name="postSplashScreenTheme">@style/Theme.VergiPro</item>
+    </style>
+    <style name="Theme.VergiPro.Splash.Light" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#FFFFFF</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/vp_mark_black</item>
+        <item name="windowSplashScreenIconBackgroundColor">#FFFFFF</item>
+        <item name="postSplashScreenTheme">@style/Theme.VergiPro</item>
+    </style>
+    <style name="Theme.VergiPro.Splash.Dark" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#000000</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/vp_mark_white</item>
+        <item name="windowSplashScreenIconBackgroundColor">#000000</item>
+        <item name="postSplashScreenTheme">@style/Theme.VergiPro</item>
+    </style>
+</resources>

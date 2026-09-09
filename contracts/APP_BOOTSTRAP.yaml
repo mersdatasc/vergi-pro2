@@ -1,0 +1,16 @@
+version: 2
+status: replaced
+reason: The shared backend does not expose a mobile/bootstrap endpoint.
+startup_flow:
+  - POST /api/auth/refresh
+  - GET /api/auth/me
+  - GET /api/app/dashboard
+authentication: required_after_identity
+tenant_context:
+  header: X-Organization-ID
+  required_for: /api/app/*
+rules:
+  - Never substitute demo tokens or sample organizations.
+  - Restore the refresh token from secure device storage.
+  - Select an organization returned by /api/auth/me before loading app data.
+  - Treat unavailable app endpoints as an error or empty state, never as demo data.

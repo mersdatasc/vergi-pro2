@@ -1,0 +1,41 @@
+version: 1
+policy: strict
+release_gate: true
+platforms: [ios, android]
+states_required:
+  - loading
+  - content
+  - empty
+  - error
+  - offline
+  - permission_denied
+accessibility_required: true
+localization_required: true
+features:
+  app_shell:
+    status: foundation
+    owner: core
+  identity:
+    status: planned
+    capabilities: [login, refresh_rotation, biometric_unlock, organization_switch]
+  home:
+    status: foundation
+    capabilities: [greeting, period_health, pending_actions, quick_capture]
+  capture:
+    status: foundation
+    capabilities: [camera, gallery, pdf, quality_coach, multi_page, offline_queue]
+  documents:
+    status: foundation
+    capabilities: [list, search, filters, detail, evidence_overlay, audit_timeline]
+  finance:
+    status: foundation
+    capabilities: [vat, cash, expenses, projections, source_drilldown]
+  closing:
+    status: planned
+    capabilities: [checklist, missing_documents, anomalies, accountant_handoff]
+  collaboration:
+    status: foundation
+    capabilities: [field_comments, tasks, clarification_request, smart_digest]
+  workspace:
+    status: foundation
+    capabilities: [role_visibility, closing_room, team, accountant, vehicles, preferences, security]

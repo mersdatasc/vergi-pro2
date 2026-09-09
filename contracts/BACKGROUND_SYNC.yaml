@@ -1,0 +1,23 @@
+version: 1
+platforms:
+  ios:
+    scheduler: BGProcessingTaskRequest
+    identifier: com.vergipro.mobile.background-upload
+    requires_network_connectivity: true
+    requires_external_power: false
+  android:
+    scheduler: WorkManager
+    worker: ResumableUploadWorker
+    constraints:
+      network: connected
+      battery_not_low: true
+      storage_not_low: true
+policy:
+  cellular_modes: [allowed, wifi_only]
+  normal_state_hidden: true
+  visible_states: [offline_queued, uploading, needs_attention]
+  operating_system_retry_authoritative: true
+  duplicate_jobs_use_unique_work: true
+  logout_cancels_account_jobs: true
+  organization_switch_does_not_mix_jobs: true
+  completion_notification_contains_no_financial_data: true

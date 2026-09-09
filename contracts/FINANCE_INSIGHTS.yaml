@@ -1,0 +1,54 @@
+version: 1
+money_representation: decimal_minor_units
+metric_contract:
+  required:
+    - metric_id
+    - period
+    - currency
+    - value_minor
+    - source_document_count
+    - generated_at
+    - completeness
+  optional:
+    - comparison_period
+    - variance_percent
+    - assumptions
+    - rule_version
+metrics:
+  - sales_total
+  - expense_total
+  - vat_calculated
+  - vat_deductible
+  - vat_balance
+  - vehicle_expense_total
+  - vehicle_deductible
+  - vehicle_kkeg
+  - estimated_tax
+  - tax_radar_risk_score
+  - projected_vat_balance
+  - neutralizing_expense_needed
+exports:
+  - master_excel
+  - zip_archive
+  - luca_accounting_slip
+  - zirve_xml_transfer
+projection:
+  is_estimate: true
+  run_rate_velocity_support: true
+  assumption_disclosure_required: true
+  scenario_support: true
+  official_filing_language_forbidden: true
+drilldown:
+  source_documents_required: true
+  filter_context_preserved: true
+  reconciliation_status_visible: true
+completeness:
+  levels: [incomplete, provisional, ready, accountant_verified]
+rules:
+  no_float_for_money: true
+  missing_documents_affect_projection: true
+  stale_data_banner_required: true
+  tax_rule_version_visible: true
+  every_metric_auditable: true
+  gvk_40_1_restriction_explicit: true
+

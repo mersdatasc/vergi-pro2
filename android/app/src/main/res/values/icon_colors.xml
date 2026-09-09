@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Launcher adaptive icon arka planı -->
+    <color name="launcher_background">#000000</color>
+    <color name="launcher_background_dark">#000000</color>
+    <!-- Splash screen arka planı -->
+    <color name="splash_background">#FFFFFF</color>
+</resources>

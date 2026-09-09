@@ -1,0 +1,37 @@
+version: 1
+status_machine:
+  - draft
+  - queued_offline
+  - uploading
+  - uploaded
+  - validating
+  - extracting
+  - classifying
+  - needs_verification
+  - verified
+  - approved
+  - rejected
+  - failed
+field_status:
+  - extracted
+  - low_confidence
+  - user_corrected
+  - accountant_verified
+  - unavailable
+evidence:
+  required: true
+  coordinate_space: normalized_0_to_1
+  fields: [page, x, y, width, height, source_text]
+verification:
+  low_confidence_threshold: 0.85
+  financial_critical_fields_always_reviewable: true
+  correction_reason_required_for_accountant_override: true
+  original_ai_value_preserved: true
+  audit_event_required: true
+rules:
+  no_default_financial_values: true
+  no_auto_approval_without_policy: true
+  processing_failure_is_visible: true
+  currency_uses_decimal_minor_units: true
+  server_is_authoritative: true
+

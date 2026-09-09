@@ -1,0 +1,21 @@
+version: 1
+endpoint: GET /organizations/{organization_id}/submissions/{submission_id}/status
+response:
+  required: [submission_id, state, updated_at]
+  optional: [upload_progress, document_id, retry_after_seconds, failure_code]
+states: [queued, uploading, processing, needs_verification, needs_attention, completed]
+polling:
+  server_retry_after_authoritative: true
+  default_seconds: 3
+  maximum_seconds: 30
+  exponential_backoff_on_transport_error: true
+  jitter: true
+  foreground_only_for_non_terminal_states: true
+  background_handoff_to_os_scheduler: true
+terminal_states: [needs_verification, needs_attention, completed]
+rules:
+  state_regression_rejected: true
+  progress_regression_rejected: true
+  tenant_context_required: true
+  unknown_state_maps_to_needs_attention: true
+  raw_failure_code_not_shown_to_user: true

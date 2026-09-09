@@ -1,0 +1,42 @@
+version: 1
+views:
+  - all
+  - needs_attention
+  - awaiting_accountant
+  - missing_evidence
+  - ready_for_closing
+  - archived
+filters:
+  - organization
+  - period
+  - document_type
+  - status
+  - supplier
+  - uploader
+  - amount_range
+  - confidence_range
+  - anomaly
+search:
+  server_side: true
+  debounce_ms: 300
+  fields: [invoice_number, supplier, tax_identifier, amount, note]
+  recent_queries_local_encrypted: true
+detail_sections:
+  - source_document
+  - extracted_fields
+  - tax_breakdown
+  - comments
+  - tasks
+  - audit_timeline
+collaboration:
+  field_level_comments: true
+  mentions: true
+  clarification_requests: true
+  task_due_dates: true
+  push_content_redacted_by_default: true
+rules:
+  employee_scope_defaults_to_own_uploads: true
+  destructive_actions_require_server_confirmation: true
+  audit_timeline_is_append_only: true
+  saved_view_definition_syncs_across_devices: true
+

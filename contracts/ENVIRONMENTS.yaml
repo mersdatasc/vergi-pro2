@@ -1,0 +1,27 @@
+version: 1
+environments:
+  development:
+    api_base_url_source: local_build_configuration
+    production_signing: false
+  staging:
+    api_base_url_source: ci_secret_or_protected_configuration
+    production_signing: false
+  production:
+    api_base_url_source: ci_secret_or_protected_configuration
+    production_signing: true
+requirements:
+  scheme: https
+  api_path_suffix: /api/
+  cleartext_traffic: forbidden
+  credentials_in_repository: forbidden
+  environment_name_header:
+    development: allowed
+    staging: allowed
+    production: forbidden
+  fail_when_base_url_missing: true
+  fail_when_url_has_credentials: true
+  fail_when_url_has_query_or_fragment: true
+release_rules:
+  production_domain_allowlist_required_before_distribution: true
+  staging_and_production_must_use_distinct_hosts: true
+  certificate_pinning_requires_rotation_plan: true

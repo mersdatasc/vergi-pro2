@@ -1,0 +1,53 @@
+version: 1
+base_path: /api
+transport:
+  tls_required: true
+  timeout_seconds: 30
+  request_id_header: X-Request-ID
+  tenant_header: X-Organization-ID
+  idempotency_header: Idempotency-Key
+authentication:
+  scheme: bearer
+  access_token_storage: memory_only
+  refresh_token_storage: hardware_backed_secure_store
+  refresh_rotation: true
+  refresh_reuse_detection: true
+  device_session_binding: true
+errors:
+  envelope:
+    fields: [code, message_key, request_id, field_errors, retry_after]
+  categories:
+    - authentication
+    - authorization
+    - validation
+    - conflict
+    - rate_limited
+    - network
+    - server
+    - maintenance
+offline_queue:
+  persisted_encrypted: true
+  format_versioned: true
+  maximum_inline_payload_bytes: 1048576
+  document_binary_storage: encrypted_file_reference
+  ordering: per_aggregate
+  retry: exponential_jitter
+  maximum_attempts: 8
+  dead_letter_visible: true
+  operations:
+    - upload_document
+    - add_comment
+    - update_verification
+    - complete_task
+rules:
+  tenant_context_required: true
+  secrets_never_logged: true
+  pii_redacted_in_telemetry: true
+  mutations_require_idempotency_key: true
+  optimistic_success_requires_reversible_state: true
+  preview_repository_never_enabled_in_production: true
+repository_boundary:
+  tenant_scoped: true
+  preview_mode:
+    debug_only: true
+    release_fallback: production

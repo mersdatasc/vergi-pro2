@@ -1,0 +1,26 @@
+version: 1
+principle: full_capability_contextual_visibility
+roles:
+  owner:
+    primary: [closing_room, team, accountant, vehicles, organization]
+    secondary: [billing, integrations, security, preferences]
+  admin:
+    primary: [closing_room, team, accountant, vehicles]
+    secondary: [integrations, security, preferences]
+  accountant:
+    primary: [portfolio, closing_room, clarification_requests, exports]
+    secondary: [security, preferences]
+  employee:
+    primary: [my_expenses, my_documents, requests]
+    secondary: [security, preferences]
+  staff:
+    primary: [review_queue, escalations, service_health]
+    secondary: [security, preferences]
+rules:
+  unauthorized_items_hidden: true
+  unavailable_items_not_teased: true
+  advanced_options_secondary_layer: true
+  destructive_actions_never_quick_actions: true
+  role_switching_not_user_controlled: true
+  maximum_primary_items: 5
+
